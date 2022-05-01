@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="same-origin">
+    <title>管理页面 - 尚未完成</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            letter-spacing: 1px;
+        }
+
+        body {
+            color: rgb(226, 226, 226);
+            background-color: rgb(63, 63, 63);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-size: 16px;
+        }
+
+        form {
+            display: block;
+            padding: 25px;
+            border-radius: 5px;
+            background-color: rgba(93, 109, 145, 0.72);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .title {
+            font-size: 1.35rem;
+            text-align: center;
+        }
+
+        .form-control {
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        [type='submit'] {
+            width: 100%;
+            margin: auto;
+        }
+
+        button,
+        input {
+            font-size: 1.25rem;
+            padding: 5px;
+        }
+
+        .info {
+            top: 0;
+            position: absolute;
+            padding: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="info"></div>
+    <form action="../php/admin.php" id="login" method="post">
+        <div class="title"><a href="">管理员登录</a></div>
+        <div class="form-control">
+            <label for="account">账户</label>
+            <input required type="text" id="account" name="account">
+        </div>
+        <div class="form-control">
+            <label for="password">密码</label>
+            <input required type="password" id="password" name="password">
+        </div>
+        <div class="form-control">
+            <button type="submit">登录</button>
+        </div>
+    </form>
+    <form action="../php/admin.php" id="insert" method="post" style="display: none;">
+        <div class="title"><a href="">新的域名添加</a></div>
+        <div class="form-control">
+            <label for="domain">域名</label>
+            <input required type="text" id="domain" name="domain">
+        </div>
+        <div class="form-control">
+            <label for="uv">总访客数</label>
+            <input required type="number" id="uv" name="uv" value="0">
+        </div>
+        <div class="form-control">
+            <label for="pv">总访问量</label>
+            <input required type="number" id="pv" name="pv" value="0">
+        </div>
+        <div class="form-control">
+            <button type="submit">添加</button>
+        </div>
+        <div>
+            <a href="javascript:void(0)" id="logout">退出登录</a>
+        </div>
+    </form>
+    <script src="https://cdn.staticfile.org/jquery/3.5.0/jquery.min.js"></script>
+    <script>
+        $.ajaxSetup({
+            url: '../php/admin.php',
+            dataType: 'json'
+        });
+        $('#logout').click(function () {
+            $.ajax({
+                type: "GET",
+                data: {
+                    logout: true
+                },
+                success: function (res) {
+                    if (res.code == 200) {
+                        $('#login').show();
+                        $('#insert').hide();
+                    }
+                    $('.info').text(res.message);
+                }
+            });
+        })
+
+        $.ajax({
+            type: "GET",
+            data: {
+                'auth': 'query'
+            },
+            success: function (res) {
+                if (res.auth == true) {
+                    $('#login').hide();
+                    $('#insert').show();
+                }
+            }
+        });
+        $('#login').submit(function (event) {
+            let form = $(event.target);
+            let data = {
+                'account': form.find('#account').val(),
+                'password': form.find('#password').val(),
+            }
+            $.ajax({
+                type: 'POST',
+                data: data,
+                success: function (res) {
+                    if (res.code == 200) {
+                        $('.info').text('登录成功');
+                        form.hide();
+                        $('#insert').show();
+                    } else {
+                        $('.info').text(res.message);
+                    }
+                }
+            });
+            return false;
+        });
+        $('#insert').submit(function (event) {
+            let form = $(event.target);
+            let data = {
+                'domain': form.find('#domain').val(),
+                'uv': form.find('#uv').val(),
+                'pv': form.find('#pv').val(),
+                'instruct': 'insert'
+            }
+            $.ajax({
+                type: "POST",
+                data: data,
+                success: function (res) {
+                    if (res.code == 200) {
+                        $('.info').text(data.domain + ' 域名添加成功');
+                    } else {
+                        $('.info').text(res.message);
+                    }
+                    setTimeout(() => {
+                        $('.info').text('');
+                    }, 4500);
+                }
+            });
+            return false;
+        });
+    </script>
+</body>
+
+</html>
