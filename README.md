@@ -3,7 +3,7 @@
 [![PHPVersion](https://img.shields.io/badge/PHP-v7.4-blue?logo=php&style=flat-square)](https://www.php.net/downloads)
 [![](https://img.shields.io/github/license/tianluanchen/PHPMessageBoard?style=flat-square)](https://github.com/tianluanchen/PHPMessageBoard/blob/main/LICENSE)
 
-在网页添加一行script标签，即可统计并显示网页访客数和访问量，管理界面实现前后端分离，目前还未完成。
+在网页添加一行script标签，即可统计并显示网页访客数和访问量，管理界面采取前后端分离架构，目前还处于开发中。
 
 ## 介绍
 
