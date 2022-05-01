@@ -137,9 +137,3 @@ class DBHandle extends DB
         }
     }
 }
-// $r = new DBHANDle(DB_CONFIG);
-// $r->query_domain('dev.ayouth.xyz', 'value');
-// $r->update_record('dev.ayouth.xyz','/test','1.1.1.1');
-// $res=$r->query_domain_detail('dev.ayouth.xyz');
-// header('Content-Type:text/plain');
-// print_r($res);
