@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试页</title>
+    <style>
+        body {
+            color: rgb(226, 226, 226);
+            background-color: rgb(63, 63, 63);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <script>
+            document.writeln('<h2>站点：', location.hostname, '<br>页面路径：', location.pathname, '</h2>');
+        </script>
+        <h2>
+            站点访客数：<span id="ay-site-uv"></span>&nbsp;&nbsp;&nbsp;
+            站点访问数：<span id="ay-site-pv"></span>
+        </h2>
+        <h2>
+            当前页访客数：<span id="ay-path-uv"></span>&nbsp;&nbsp;&nbsp;
+            当前页访问数：<span id="ay-path-pv"></span>
+        </h2>
+    </div>
+    <script referrerpolicy="unsafe-url" src="./php/stat.php"></script>
+</body>
+
+</html>
