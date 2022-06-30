@@ -62,7 +62,6 @@ func queryFromSQLite(dbFile, domain, path, ip, ua string) *SiteInfo {
 		checkErr(err)
 	}
 	pagerow.Close()
-	fmt.Println(sitepv, siteuv, pathpv, pathuv)
 	return &SiteInfo{
 		Domain: domain,
 		Path:   path,
